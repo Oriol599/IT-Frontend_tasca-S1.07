@@ -58,7 +58,7 @@ test("02_arrow-3: lliga `this` a l'àmbit d'avaluació, no a l'àmbit d'execuci�
   expect(() => person.greetFriends(friendsArray)).not.toThrow();
 });
 
-test.only("02_arrow-4: pot fer que les cadenes de filtres d'arrays siguin més manejables", () => {
+test("02_arrow-4: pot fer que les cadenes de filtres d'arrays siguin més manejables", () => {
   const data = [
     { type: "Widget", name: "Sprocket", price: 10.0, qty: 3 },
     { type: "Widget", name: "Bracket", price: 1.0, qty: 5 },

@@ -1,29 +1,51 @@
+// const { result } = require("lodash");
+
 test('03_new-apis-1: should be easier to determine whether a string includes another', () => {
   const sentence = 'It was the best of times. It was the worst of times'
   // crea una variable anomenada `result` que es defineixi com una crida a sentence.includes
+
+  const result = sentence.includes("the worst of times")
+
   expect(result).toBe(true)
 })
 
 test('03_new-apis-2: should be easier to repeat a string', () => {
   const repeated = 'abc123'
   // crea una variable anomenada `result` que sigui el resultat de repetir la cadena 4 vegades
+
+  const result = repeated.repeat(4);
+
   expect(result).toBe('abc123abc123abc123abc123')
 })
 
 test('03_new-apis-3: should be able to take an array-like object and convert it into an array', () => {
-  const obj = {length: 3, 0: 'a', 1: 'b', 2: 'c'}
+  const obj = { length: 3, 0: 'a', 1: 'b', 2: 'c' }
   // això és encara més útil amb un NodeList com el retornat per document.querySelector
   // crea una variable anomenada `result` i assigna-li una crida a Array.from
+
+  const result = Array.from(obj);
+
   expect(result).toEqual(['a', 'b', 'c'])
 })
 
 test('03_new-apis-4: should be easier to fill an array with values', () => {
   const originalArray = new Array(5)
   // crea una variable anomenada `result` i assigna-li un array omplert amb 3s excepte el primer element
+
+  const originalArrayFilled = originalArray.fill(0);
+
+  const result = originalArrayFilled.map((e, i) => {
+    if (i > 0) {
+      e = 3
+      return e
+    }
+
+  })
+
   expect(result).toEqual([, 3, 3, 3, 3]) // eslint-disable-line no-sparse-arrays
 })
 
-test('03_new-apis-5: should be easy to copy properties from one object to another', () => {
+test.only('03_new-apis-5: should be easy to copy properties from one object to another', () => {
   const source1 = {
     a: {
       b: 'c',
@@ -50,10 +72,12 @@ test('03_new-apis-5: should be easy to copy properties from one object to anothe
     d: true,
     p: ['x', 'y', 'z'],
   }
-  
+
   //Combina les fonts dins d'un nou objecte utilitzant Object.assign.
   //Tingues en compte que Object.assign fa una còpia superficial (shallow copy), així que les propietats internes seran sobrescrites, no fusionades.
-  
+
+  const result = Object.assign({}, target, source1, source2, source3);
+
   expect(result).toEqual({
     a: {
       b: 'c',
