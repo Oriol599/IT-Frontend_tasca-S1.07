@@ -1,76 +1,136 @@
-test('10_class-1: has a constructor for initialization', () => {
+test("10_class-1: has a constructor for initialization", () => {
   // Crea una classe Animal
   // Afegeix un constructor que prengui un paràmetre, el nom.
   // Assigna this.name al nom passat com a paràmetre
 
-  const animal = new Animal()
-  const dog = new Animal('Dog')
+  class Animal {
+    constructor(name) {
+      this.name = name;
+    }
+  }
 
-  expect(animal.name).toBeUndefined()
-  expect(dog.name).toBe('Dog')
-})
+  const animal = new Animal();
+  const dog = new Animal("Dog");
 
-test('10_class-2: constructor can have default param values', () => {
+  expect(animal.name).toBeUndefined();
+  expect(dog.name).toBe("Dog");
+});
+
+test("10_class-2: constructor can have default param values", () => {
   // Crea una classe Animal amb un constructor
   // Fes que la classe tingui un valor per defecte (utilitzant paràmetres per defecte) per al nom: 'Honey Badger'
 
-  const animal = new Animal()
-  const dog = new Animal('Dog')
+  class Animal {
+    constructor(name = 'Honey Badger') {
+      this.name = name;
+    }
+  }
 
-  expect(animal.name).toBe('Honey Badger')
-  expect(dog.name).toBe('Dog')
-})
+  const animal = new Animal();
+  const dog = new Animal("Dog");
 
-test('10_class-3: can have instance methods', () => {
+  expect(animal.name).toBe("Honey Badger");
+  expect(dog.name).toBe("Dog");
+});
+
+test("10_class-3: can have instance methods", () => {
   // Crea una classe Animal, passa el nom al constructor i afegeix una funció sayName a la definició de la classe
 
-  const animal = new Animal()
+  class Animal {
+    constructor(name = 'Honey Badger') {
+      this.name = name;
+    }
+    sayName(name) {
+      return `My name is: ${this.name}`
+    }
+  }
 
-  expect(animal.sayName).toBeDefined()
-  expect(Animal.sayName).toBeUndefined()
-  expect(animal.sayName()).toBe('My name is: Honey Badger')
-})
+  const animal = new Animal();
 
-test('10_class-4: can have static methods', () => {
+  expect(animal.sayName).toBeDefined();
+  expect(Animal.sayName).toBeUndefined();
+  expect(animal.sayName()).toBe("My name is: Honey Badger");
+});
+
+test("10_class-4: can have static methods", () => {
   // Crea una classe Animal, passa el nom al constructor,
   // i afegeix un mètode estàtic create que prengui un nom i retorni una instància
 
-  const animal = new Animal()
-  const dog = Animal.create('Dog')
+  class Animal {
+    constructor(name) {
+      this.name = name;
+    }
 
-  expect(animal.create).toBeUndefined()
-  expect(Animal.create).toBeDefined()
+    static create(name) {
+      return new Animal(name);
+    }
+  }
 
-  expect(dog instanceof Animal).toBe(true)
-  expect(dog.name).toBe('Dog')
-})
+  const nouAnimal = Animal.create('Lleó');
 
-test('10_class-5: can extend another class', () => {
+  const animal = new Animal();
+  const dog = Animal.create("Dog");
+
+  expect(animal.create).toBeUndefined();
+  expect(Animal.create).toBeDefined();
+
+  expect(dog instanceof Animal).toBe(true);
+  expect(dog.name).toBe("Dog");
+});
+
+test("10_class-5: can extend another class", () => {
   // Crea una classe Animal
   // Crea una classe Dog que extengui Animal
   // Afegeix un mètode `sayName` a `Dog` que retorni el nom de la instància.
 
-  const dog = new Dog('Fido')
+  class Animal {
+    constructor(name) {
+      this.name = name;
+    }
 
-  expect(dog instanceof Dog).toBe(true)
-  expect(dog instanceof Animal).toBe(true)
+    static create(name) {
+      return new Animal(name);
+    }
+  }
 
-  expect(Animal.prototype.sayName).toBeUndefined()
-  expect(Dog.prototype.sayName).toBeDefined()
+  class Dog extends Animal {
+    constructor(name) {
+      super(name)
+    }
 
-  expect(dog.sayName()).toBe('My name is: Fido')
-})
+    sayName(name) {
+      return `My name is: ${this.name}`
+    }
+  }
 
-test('10_class-6: can use property setters and getters', () => {
+  const dog = new Dog("Fido");
+
+  expect(dog instanceof Dog).toBe(true);
+  expect(dog instanceof Animal).toBe(true);
+
+  expect(Animal.prototype.sayName).toBeUndefined();
+  expect(Dog.prototype.sayName).toBeDefined();
+
+  expect(dog.sayName()).toBe("My name is: Fido");
+});
+
+test.only("10_class-6: can use property setters and getters", () => {
   // Crea una classe Animal (no passis el nom al constructor)
   // Afegeix un setter per a la propietat name
   // Afegeix un getter per a la propietat name
 
-  const animal = new Animal()
-  animal.name = 'Dog'
-  expect(animal.name).toBe('Dog type of animal')
-  animal.name = 'Cat'
-  expect(animal.name).toBe('Cat type of animal')
-})
 
+  class Animal {
+    #name
+    set name(newName) {
+      this.#name = newName
+    }
+    get name() { return `${this.#name} type of animal` }
+  }
 
+  const animal = new Animal();
+  animal.name = "Dog";
+  expect(animal.name).toBe("Dog type of animal");
+  animal.name = "Cat";
+  expect(animal.name).toBe("Cat type of animal");
+});
