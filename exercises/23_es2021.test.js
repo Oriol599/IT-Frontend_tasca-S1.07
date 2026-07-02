@@ -5,6 +5,9 @@ test('23_es2021-1: Logical assignment operators (&&=, ||=, ??=)', () => {
   let c = null
 
   // Resol aquí...
+  a &&= "assigned";
+  b ||= "default";
+  c ??= "fallback";
 
   expect(a).toBe('assigned')
   expect(b).toBe('default')
@@ -26,7 +29,7 @@ test('23_es2021-3: Promise.any returns the first resolved promise', async () => 
     Promise.resolve('Second resolved'),
   ]
 
-  const result = Promise.any(promises)
+  const result = await Promise.any(promises)
 
   expect(result).toBe('First resolved')
 })
